@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Summary</title>
+<style>
+body {
+  font-family: Arial;
+}
+
+.container {
+  width: 500px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  margin-top: 50px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  border: 2px solid #e9d5ff;
+}
+
+h2 {
+  text-align: center;
+  color: #7c3aed;
+}
+
+p {
+  color: #444;
+  margin: 10px 0;
+}
+
+button {
+  padding: 11px;
+  width: 100%;
+  margin-top: 10px;
+  background: #a5b4fc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #818cf8;
+}
+</style>
+
+<div class="container">
+
+  <h2>Order Summary</h2>
+
+  <div id="result"></div>
+
+  <button onclick="window.location.href='preorder.html'">
+    Back
+  </button>
+
+</div>
+
+<script>
+
+function getCookie(name) {
+
+  let cookies = document.cookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+
+    let c = cookies[i].trim();
+
+    if (c.indexOf(name + "=") == 0) {
+      return decodeURIComponent(c.substring(name.length + 1));
+    }
+  }
+
+  return "";
+}
+
+let customer = getCookie("customerName");
+let product = localStorage.getItem("product");
+let quantity = localStorage.getItem("quantity");
+let pickup = localStorage.getItem("pickup");
+let address = localStorage.getItem("address");
+
+let data = product.split("|");
+
+let productName = data[0];
+let price = Number(data[1]);
+
+let total = price * Number(quantity);
+
+let output = "";
+
+output += "<p><b>Customer Name:</b> " + customer + "</p>";
+output += "<p><b>Product:</b> " + productName + "</p>";
+output += "<p><b>Quantity:</b> " + quantity + "</p>";
+output += "<p><b>Total Amount:</b> PHP " + total + "</p>";
+output += "<p><b>Pickup Method:</b> " + pickup + "</p>";
+
+if (pickup == "Delivery") {
+  output += "<p><b>Address:</b> " + address + "</p>";
+}
+
+output += "<p><b>Thank you for pre-ordering!</b></p>";
+
+document.getElementById("result").innerHTML = output;
+
+</script>
+
+</body>
+</html>
